@@ -4,16 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-
+import OtpVerify from "./otp_verify"
 const Register = () => {
 
     const navigate = useNavigate();
 
     const [ user, setUser] = useState({
-        name: "", // 
-        username:"", // sanjuth
-        password:"", // 1234
+        name: "", 
+        username:"",
+        password:"",
     })
+
+    const [verify , setVerify] = useState(false);
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -24,15 +26,18 @@ const Register = () => {
     }
 
     const signup = () => {
+        if(verify === false) {
+            alert("Please Verify Phone Number.")
+            return;
+        };
         const { name, username, password } = user
         if( name && username && password){
-            // console.log(username);
             axios.post("http://localhost:3001/signup", user)
             .then( res => {
                 alert(res.data.message)
                 navigate("/login")
             })
-            .catch(err => console.log("req error"));
+            .catch(err => console.log("req error",err));
         } else {
             alert("invlid input")
         }
@@ -78,7 +83,8 @@ const Register = () => {
                 value={user.password}
                 onChange={handleChange}
             /> <br/><br/>
-        
+            <OtpVerify setVerify={setVerify}/>
+            <br/><br/>
             <Button variant="contained" color="primary" onClick={signup} >
                 Sign Up
             </Button>
@@ -86,6 +92,7 @@ const Register = () => {
             <Button variant="contained" color="primary" onClick={() => navigate("/login")} >
                 Login
             </Button>
+
         </div>
         </Box>
     )

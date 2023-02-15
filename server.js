@@ -3,6 +3,7 @@ require('./database/db');
 const User = require('./database/user_db');
 const cors=require("cors");
 
+
 const app=express();
 app.use(cors());
 app.use(express.json());
@@ -12,6 +13,8 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/login",(req,res)=>{
     res.send("hello");
 });
+
+
 
 
 app.post("/login", (req,res)=>{
@@ -52,5 +55,6 @@ app.post("/signup", (req,res)=>{
     });
 });
 
-const PORT = 0;
+
+const PORT = 3001;
 app.listen(PORT, () => console.log(`App running on port ${PORT}`));

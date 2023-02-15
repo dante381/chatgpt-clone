@@ -1,4 +1,3 @@
-import './App.css';
 import Login from './components/login'
 import Home from './components/home'
 import Signup from './components/signup'
@@ -27,6 +26,7 @@ function App() {
           <Route path="/login" element={ <Login setLoginUser={setLoginUser}/> } />          
 
           <Route path="/signup" element={ <Signup/> } />
+
 
         </Routes>
 
