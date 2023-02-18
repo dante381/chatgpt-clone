@@ -61,6 +61,8 @@ const otp_verify = (props)=> {
         const user = result.user;
         console.log(JSON.stringify(user))
         alert("User is verified")
+        console.log("ss",phno);
+        props.setNum(phno);
         props.setVerify(true);
         setSucess(true);
     }).catch((error) => {

@@ -34,8 +34,9 @@ app.post("/login", (req,res)=>{
 });
 
 app.post("/signup", (req,res)=>{
-    const { name, username, password} = req.body;
+    const { name, username, password, phno} = req.body;
     console.log(req.body);
+    
     User.findOne({username: username}, (err, user) => {
         if(user){  
             res.send({message: "Username already exists !!!"});
@@ -44,9 +45,10 @@ app.post("/signup", (req,res)=>{
             const user = new User({
                 name : name,
                 username : username,
-                password : password
+                password : password,
+                phno : phno
             });
-
+            
             user.save(err => {
                 if(err) res.send(err);
                 else res.send( { message: "Sign Up Successfull" });
@@ -54,6 +56,36 @@ app.post("/signup", (req,res)=>{
         }
     });
 });
+
+app.post("/sentMail", (req,res) =>{
+    const {otp , email} =req.body;
+    console.log(otp,email);
+    const nodemailer = require('nodemailer');
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+        user: 'respiratoryanalysis@gmail.com',
+        pass: 'xmuaoiqraaillncy'
+        }
+    });
+
+    const mailOptions = {
+        from: 'respiratoryanalysis@gmail.com',
+        to: email,
+        subject: 'verification mail',
+        text: 'Your OTP for Respiratory analysis Website is '+otp
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error)
+          res.send("failed")
+        } else {
+          console.log("email Sent...");
+          res.send("ok");
+        }
+    });
+})
 
 
 const PORT = 3001;
