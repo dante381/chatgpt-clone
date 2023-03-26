@@ -50,7 +50,7 @@
 
 .chat-input-holder{
   padding: 24px;  
-  position: absolute;
+  position:absolute;
   bottom: 0;
   left: 0;right: 0;
 }
@@ -67,8 +67,17 @@
   box-shadow: 0 0 4px 0 rgb(0,0,0,0.5);
 }
 
-.chat-log{
+.chat{
+  height: 80%;
+  min-height: auto;
+  overflow: scroll;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y proximity;
+}
+
+.chat > .chat-log > .chat-log:last-child{
   text-align: left;
+  scroll-snap-align: end;
 }
 
 .chat-message.chatgpt{
