@@ -21,7 +21,7 @@ function App() {
 
         <Routes>
 
-          <Route exact path="/" element={ (user && user._id) ? <Home details={props}/> : <Login setLoginUser={setLoginUser}/>} />
+          <Route exact path="/" element={ (user && user._id) ? <Home/> : <Login setLoginUser={setLoginUser}/>} />
 
           <Route path="/login" element={ <Login setLoginUser={setLoginUser}/> } />          
 

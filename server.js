@@ -1,7 +1,9 @@
 const express= require("express");
 require('./database/db');
 const User = require('./database/user_db');
+const { Configuration, OpenAIApi } = require("openai");
 const cors=require("cors");
+const bodyparser=require("body-parser");
 
 
 const app=express();
@@ -9,13 +11,41 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+const configuration = new Configuration({
+    organization: "org-pZxkB1Szkcw2j12vlW6d2sQr",
+    apiKey: "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",
+});
+const openai = new OpenAIApi(configuration);
 
 app.get("/login",(req,res)=>{
     res.send("hello");
 });
 
 
+app.post('/', async (req,res)=>{
+    const {message, currentModel}=req.body;
+    console.log(currentModel);
+    const response = await openai.createCompletion({
+        model: `${currentModel}`,
+        prompt: `${message}`,
+        max_tokens: 100,
+        temperature: 0.5,
+      });
 
+    // console.log(response.data.choices[0].text);
+    res.json({
+        message:response.data.choices[0].text
+        // data:message
+    });
+});
+
+app.get('/models', async (req,res)=>{
+    const response = await openai.listModels();
+    // console.log(response.data);
+    res.json({
+        models:response.data,
+    });
+});
 
 app.post("/login", (req,res)=>{
     const { username, password} = req.body

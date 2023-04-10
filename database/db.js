@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect("mongodb+srv://sanjuth:sanjuth2003@cluster0.7zmjbe1.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://naveen:anr666ANR@clustergodse.3wkbspw.mongodb.net/?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
